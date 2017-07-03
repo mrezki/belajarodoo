@@ -120,7 +120,7 @@
             </field>
         </record>
 
-        <!-- session tree/list view -->
+        
         <record model="ir.ui.view" id="session_tree_view">
             <field name="name">session.tree</field>
             <field name="model">test_module.session</field>
@@ -134,7 +134,7 @@
             </field>
         </record>
 
-        <!-- calendar view -->
+        
         <record model="ir.ui.view" id="session_calendar_view">
             <field name="name">session.calendar</field>
             <field name="model">test_module.session</field>
@@ -183,7 +183,7 @@
                                                  oe_kanban_global_click_edit oe_semantic_html_override
                                                  oe_kanban_card {{record.group_fancy==1 ? 'eo_kanban_card_fancy':''}}">
                                 <div class="oe_dropdown_kanban">
-                                    <!-- dropdown menu -->
+                                    
                                     <div class="oe_dropdown_toggle">
                                         <span class="oe_e">#</span>
                                         <ul class="oe_dropdown_menu">
@@ -198,7 +198,6 @@
                                     <div class="oe_clear"></div>
                                 </div>
                                 <div t-attf-class="oe_kanban_content">
-                                    <!-- title -->
                                     Session name:
                                     <field name="name"/>
                                     <br/>
@@ -213,33 +212,33 @@
                     </templates>
                 </kanban>
             </field>
-        </record>
+        </record> -->
 
         <record model="ir.actions.act_window" id="session_list_action">
             <field name="name">Sessions</field>
             <field name="res_model">test_module.session</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,gantt,graph,kanban</field>
-        </record>
+        </record> -->
 
-      <record model="ir.ui.view" id="wizard_form_view">
-        <field name="name">wizard.form</field>
-        <field name="model">test_module.wizard</field>
-        <field name="arch" type="xml">
-              <form string="Add Attendees">
-                  <group>
-                      <field name="session_id"/>
-                      <field name="attendee_ids"/>
-                  </group>
-                    <footer>
-                        <button name="subscribe" type="object"
-                                string="Subscribe" class="oe_highlight"/>
-                        or
-                        <button special="cancel" string="Cancel"/>
-                    </footer>
-              </form>
-        </field>
-        </record>
+        <record model="ir.ui.view" id="wizard_form_view">
+            <field name="name">wizard.form</field>
+            <field name="model">test_module.wizard</field>
+            <field name="arch" type="xml">
+                  <form string="Add Attendees">
+                      <group>
+                          <field name="session_id"/>
+                          <field name="attendee_ids"/>
+                      </group>
+                        <footer>
+                            <button name="subscribe" type="object"
+                                    string="Subscribe" class="oe_highlight"/>
+                            or
+                            <button special="cancel" string="Cancel"/>
+                        </footer>
+                  </form>
+            </field>
+        </record> 
 
         <act_window id="launch_session_wizard"
                     name="Add Attendees"
@@ -247,7 +246,7 @@
                     res_model="test_module.wizard"
                     view_mode="form"
                     target="new"
-                    key2="client_action_multi"/>
+                    key2="client_action_multi"/> 
 
 
         <!-- top level menu: no parent -->
@@ -255,7 +254,8 @@
         <!-- A first level in the left side menu is needed
              before using action= attribute -->
         <menuitem id="test_module_menu" name="Open Module"
-                  parent="main_test_module_menu"/>
+                  parent="main_test_module_menu"
+                  sequence="1"/>
         <!-- the following menuitem should appear *after*
              its parent test_module_menu and *after* its
              action course_list_action -->
@@ -263,7 +263,7 @@
                   action="course_list_action"/>
 
         <menuitem id="session_menu" name="Sessions"
-                  parent="openacademy_menu"
+                  parent="test_module_menu"
                   action="session_list_action"/>
         <!-- Full id location:
              action="test_module.course_list_action"

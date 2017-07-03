@@ -9,7 +9,7 @@ class Wizard(models.TransientModel):
         return self.env['test_module.session'].browse(self._context.get('active_id'))
 
     session_id = fields.Many2one('test_module.session',
-        string="Session", required=True, default=default_session)
+        string="Session", required=True, default=_default_session)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
 
     @api.multi
