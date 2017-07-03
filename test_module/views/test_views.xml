@@ -212,14 +212,14 @@
                     </templates>
                 </kanban>
             </field>
-        </record> -->
+        </record> 
 
         <record model="ir.actions.act_window" id="session_list_action">
             <field name="name">Sessions</field>
             <field name="res_model">test_module.session</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,gantt,graph,kanban</field>
-        </record> -->
+        </record> 
 
         <record model="ir.ui.view" id="wizard_form_view">
             <field name="name">wizard.form</field>

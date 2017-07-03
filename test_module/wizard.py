@@ -14,6 +14,6 @@ class Wizard(models.TransientModel):
 
     @api.multi
     def subscribe(self):
-        for session in self.session_ids:
+        for session in self.session_id:
             session.attendee_ids |= self.attendee_ids
         return {}
