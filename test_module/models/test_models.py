@@ -8,7 +8,8 @@ class course(models.Model):
 
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
-
+    color = fields.Integer()
+    
     responsible_id = fields.Many2one('res.users',
         ondelete='set null', string="Responsible", index=True)
     session_ids = fields.One2many (
@@ -49,7 +50,7 @@ class Session(models.Model):
     color = fields.Integer()
 
     instructor_id = fields.Many2one('res.partner', string="Instructor",
-        domain=['|', ('instructor','=', True),
+        domain=['|', ('hai','=', True),
                      ('category_id.name', 'ilike', "Teacher")])
     course_id = fields.Many2one('test_module.course',
         ondelete='cascade', string="Course", required=True)
