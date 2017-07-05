@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+    <data>
+        <!-- Add instructor field to existing view -->
+        <record model="ir.ui.view" id="partner_ext_notes_form_view">
+            <field name="name">partner.instructor</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- Invisible Title Cara Pertama-->
+                <field name="title" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <!-- Invisible Title Cara Kedua-->
+                <xpath expr="//field[@name='lang']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <field name="category_id" position="after">
+                    <field name="lat_sex"/>
+                </field>
+
+                <notebook position="inside">
+                    
+                    <page string="External Notes">
+                        <group>
+                            <field name="lat_name"/>
+                            <field name="lat_description"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+
+
+        </record>
+        
+
+    </data>
+</odoo>

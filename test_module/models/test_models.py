@@ -48,21 +48,17 @@ class Session(models.Model):
     seats = fields.Integer(string="Number of seats")
     active = fields.Boolean(default=True)
     color = fields.Integer()
-
     instructor_id = fields.Many2one('res.partner', string="Instructor",
         domain=['|', ('hai','=', True),
                      ('category_id.name', 'ilike', "Teacher")])
     course_id = fields.Many2one('test_module.course',
         ondelete='cascade', string="Course", required=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
-
     taken_seats = fields.Float(string="Taken seats", compute='_taken_seats')
     end_date = fields.Date(string="End Date", store=True,
         compute='_get_end_date', inverse='_set_end_date')
-
     hours = fields.Float(string="Duration in hours",
                          compute='_get_hours', inverse='_set_hours')
-
     attendees_count = fields.Integer(
         string="Attendees count", compute='_get_attendees_count', store=True)
 
