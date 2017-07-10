@@ -12,7 +12,8 @@
         'security/ir.model.access.csv',
         'templates.xml',
         'views/test_views.xml',
-        'views/test_partner.xml'
+        'views/test_partner.xml',
+        'report/test_course_rpt.xml',
     ],
     "active": False,
     "application": False,

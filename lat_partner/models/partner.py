@@ -13,7 +13,9 @@ class Partner(models.Model):
     lat_name = fields.Char(string="Name")
     lat_description = fields.Text(string="Description")
 
+
+    # Parameter for constraints
     _sql_constraints = [
-        ('name_parent_uniq', 'unique(name)', 'The name and the company must be unique !')
+        ('name_parent_uniq', 'unique(name,parent_id)', 'The name and the company must be unique !')
     ]
  

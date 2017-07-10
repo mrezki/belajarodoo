@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from datetime import timedelta
+from datetime import timedelta, datetime
 from odoo import models, fields, api, exceptions, _
+
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 class course(models.Model):
     _name = 'test_module.course'
@@ -9,13 +14,25 @@ class course(models.Model):
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
     color = fields.Integer()
-    
-    responsible_id = fields.Many2one('res.users',
-        ondelete='set null', string="Responsible", index=True)
-    session_ids = fields.One2many (
+    responsible_id = fields.Many2one(
+        'res.users', ondelete='set null', string="Responsible", index=True)
+    session_ids = fields.One2many(
         'test_module.session', 'course_id', string="Sessions")
+    lat_createuserid = fields.Char()
+    lat_createdate = fields.Date(default=fields.Date.today)
+    lat_modifyuserid = fields.Char()
+    lat_modifydate = fields.Date(default=fields.Date.today)
 
-    
+    _sql_constraints = [
+        ('name_desciption_check',
+         'CHECK(name != description)',
+         "The title of the course should not be the description"),
+
+        ('name_unique',
+         'UNIQUE(name)',
+         "The course title must be unique"),
+    ]
+
     def copy(self, default=None):
         default = dict(default or {})
 
@@ -29,15 +46,39 @@ class course(models.Model):
         default['name'] = new_name
         return super(course, self).copy(default)
 
-    _sql_constraints = [
-        ('name_desciption_check',
-         'CHECK(name != description)',
-         "The title of the course should not be the description"),
+    # ini harus pake boss.
+    # create = add
+    @api.model
+    def create(self, vals):
 
-        ('name_unique',
-         'UNIQUE(name)',
-         "The course title must be unique"),
-    ]
+        vals.update(
+            {
+                'lat_createuserid': self.env.uid,
+                'lat_createdate': datetime.now()
+            }
+        )
+        result = super(course, self).create(vals)
+        return result
+
+    # write = update
+    @api.multi
+    def write(self, vals):
+
+        vals.update(
+            {
+                'lat_modifyuserid': self.env.uid,
+                'lat_modifydate': datetime.now()
+            }
+        )
+        # contoh logger
+        # _logger.info(vals)
+        # _logger.info("==============Line 76===========================")
+
+        # self.lat_modifyuserid = self.env.uid
+        # self.lat_modifydate = datetime.now()
+        result = super(course, self).write(vals)
+        return result
+
 
 class Session(models.Model):
     _name = 'test_module.session'
@@ -92,7 +133,7 @@ class Session(models.Model):
     def _verify_valid_seats(self):
         if self.seats < 0:
             return {
-                'warning':{
+                'warning': {
                     'title': _("Incorrect 'seats' value"),
                     'message': _("The number of available seats may not be negative"),
                 },
@@ -104,7 +145,7 @@ class Session(models.Model):
                     'message': _("Increase seats or remove excess attendees"),
                 },
             }
-    
+
     @api.depends('start_date', 'duration')
     def _get_end_date(self):
         if not (self.start_date and self.duration):
@@ -116,7 +157,6 @@ class Session(models.Model):
         duration = timedelta(days=self.duration, seconds=-1)
         self.end_date = start + duration
 
-    
     def _set_end_date(self):
         if not (self.start_date and self.end_date):
             return
@@ -127,16 +167,14 @@ class Session(models.Model):
         end_date = fields.Datetime.from_string(self.end_date)
         self.duration = (end_date - start_date).days + 1
 
-    
     @api.depends('duration')
     def _get_hours(self):
         self.hours = self.duration * 24
 
-    
     def _set_hours(self):
         self.duration = self.hours / 24
 
-    
+
     @api.depends('attendee_ids')
     def _get_attendees_count(self):
         self.attendees_count = len(self.attendee_ids)

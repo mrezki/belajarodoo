@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- <template id="external_layout_s3">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="report.external_layout_header" />
+            <t t-raw="0" />
+        </template> -->
+
+        <template id="report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            
+                            <h2>Report Course</h2>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table>
+                                        <tr>
+                                            <th width="40%">Nama</th>
+                                            <td width="40%"><span t-field="o.name"/></td>
+                                        </tr>
+
+                                        <tr>
+                                            <th width="40%">Responsible</th>
+                                            <td><span t-field="o.responsible_id"/></td>
+                                        </tr>
+
+                                        <tr>
+                                            <th width="40%">Description</th>
+                                            <td><span t-field="o.description"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="col-xs-12" style="margin-top=30px;">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" width="5%">Name</th>
+                                                <th class="text-center" width="20%">Instructor</th>
+                                                <th class="text-center" width="20%">Instructor Address</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="o.session_ids" t-as="line">
+                                            <tr>
+                                                <td><span t-field="line.name"/></td>
+                                                <td><span t-field="line.instructor_id"/></td>
+                                                <td><span t-field="line.instructor_id.street"/></td>
+                                            </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                
+                            </div>
+
+                            
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+            id="action_report"
+            string="Print Course"
+            model="test_module.course"
+            report_type="qweb-pdf"
+            name="test_module.report"
+            file="test_module.report"
+        />
+
+        <!-- <record id="paperformat_custom" model="report.paperformat">
+            <field name="name">A5</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">148</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">17</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">80</field>
+            <field name="report_ids" eval="[(4, ref('action_report'))]"/>
+        </record> -->
+
+</odoo>
