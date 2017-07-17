@@ -5,6 +5,7 @@
         <record id="view_order_form_inherit_sale_stock" model="ir.ui.view">
             <field name="name">sale.order.form.sale.document</field>
             <field name="model">sale.order</field>
+            <field name="type">form</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_view_invoice']" position="after">
@@ -17,6 +18,13 @@
                         attrs="{'invisible': [('delivery_count', '=', 0)]}">
                     </button>
                 </xpath>
+
+                
+
+                <field name="validity_date" position="after">
+                    <field name="fal_payment"/>
+                </field>
+
             </field>
         </record>
 

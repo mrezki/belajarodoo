@@ -16,10 +16,10 @@ class fal_document_car_sale(models.Model):
     )
     fal_sale_id = fields.Char()
     fal_product_id = fields.Many2one(
-        'product.product', 
-        string='Product', 
-        domain=[('sale_ok', '=', True)], 
-        change_default=True, 
+        'product.product',
+        string='Product',
+        domain=[('sale_ok', '=', True)],
+        change_default=True,
         ondelete='restrict',
         index=True
     )
@@ -57,6 +57,11 @@ class fal_document_car_sale(models.Model):
 class fal_inherit_sales_order(models.Model):
     _inherit = 'sale.order'
 
+    fal_payment = fields.Selection([
+        ('cash', "Cash"),
+        ('credit', "Credit"),
+    ], string="Payment Method")
+    
     @api.multi
     def fal_action_view_document(self):
         return {
@@ -107,7 +112,7 @@ class fal_inherit_stock_picking(models.Model):
                             self.env['fleet.vehicle'].create(
                                 {
                                     'license_plate': lot.lot_name,
-                                    'model_id': '56', # For Demo Only (Hardcode)
+                                    'model_id': '56',# For Demo Only (Hardcode)
                                 }
                             )
                             id_fleet = self.env['fleet.vehicle'].search([('license_plate', '=', lot.lot_name)], limit=1)
