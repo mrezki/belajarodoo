@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+    <data>
+        <!-- Add instructor field to existing view -->
+        <record model="ir.ui.view" id="lat_siswa_receipt_form">
+            <field name="name">lat.siswa.receipt.form</field>
+            <field name="model">lat.siswa.receipt</field>
+            <field name="arch" type="xml">
+                <form string="Register Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button
+                                name="lat_action_paid_receipt"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file"
+                                string="Paid"
+                                attrs="{'invisible': [('lat_paidstatus', '=', True)]}"/>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="lat_register_id"/>
+                            <field name="lat_siswa"/>
+                            <field name="lat_paiddate"/>
+                            <field name="lat_paidstatus" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lat_siswa_receipt_tree">
+            <field name="name">lat.siswa.receipt.tree</field>
+            <field name="model">lat.siswa.receipt</field>
+            <field name="arch" type="xml">
+                <tree string="Register Tree">
+                    <field name="name"/>
+                    <field name="lat_siswa"/>
+                    <field name="lat_paiddate"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="lat_siswa_receipt_action">
+            <field name="name">Receipt</field>
+            <field name="res_model">lat.siswa.receipt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first Receipt
+                </p>
+            </field>
+        </record> 
+
+        <menuitem 
+                id="menu_receipt" 
+                name="Receipt"
+                parent="main_student_module_menu"
+                action="lat_siswa_receipt_action"
+                sequence="1"
+        />
+    </data>
+</odoo>

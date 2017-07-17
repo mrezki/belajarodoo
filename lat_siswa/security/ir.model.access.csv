@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_lat_siswa_register,access_lat_siswa_register,model_lat_siswa_register,base.group_user,1,1,1,0
+access_lat_siswa_receipt,access_lat_siswa_receipt,model_lat_siswa_receipt,base.group_user,1,1,1,0
+access_lat_siswa_student,access_lat_siswa_student,model_lat_siswa_student,base.group_user,1,1,1,0

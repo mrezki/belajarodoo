@@ -6,28 +6,33 @@
                     <t t-call="report.external_layout">
                         <div class="page">
                             
-                            <h2>Report Course</h2>
+                            <h2>Report Receipt</h2>
                             <div class="row">
                                 <div class="col-xs-12">
                                     <table>
                                         <tr>
-                                            <th width="40%">Nama</th>
+                                            <th width="40%">Receipt Number</th>
                                             <td width="40%"><span t-field="o.name"/></td>
                                         </tr>
-
                                         <tr>
-                                            <th width="40%">Responsible</th>
-                                            <td><span t-field="o.responsible_id"/></td>
+                                            <th width="40%">Register Date</th>
+                                            <td>
+                                            	<span t-field="o.lat_register_id.lat_regiterdate"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="40%">Paid Date</th>
+                                            <td><span t-field="o.lat_paiddate"/></td>
                                         </tr>
 
                                         <tr>
-                                            <th width="40%">Description</th>
-                                            <td><span t-field="o.description"/></td>
+                                            <th width="40%">Name</th>
+                                            <td><span t-field="o.lat_siswa"/></td>
                                         </tr>
                                     </table>
                                 </div>
                                 
-                                <div class="col-xs-12" style="margin-top=30px;">
+                                <!-- <div class="col-xs-12" style="margin-top=30px;">
                                     <table class="table table-condensed">
                                         <thead>
                                             <tr>
@@ -46,7 +51,7 @@
                                             </t>
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> -->
 
                                 
                             </div>
@@ -60,28 +65,10 @@
 
         <report
             id="action_report"
-            string="Print Course"
-            model="test_module.course"
+            string="Print Receipt"
+            model="lat.siswa.receipt"
             report_type="qweb-pdf"
-            name="test_module.report"
-            file="test_module.report"
+            name="lat_siswa.report"
+            file="lat_siswa.report"
         />
-
-        <!-- <record id="paperformat_custom" model="report.paperformat">
-            <field name="name">A5</field>
-            <field name="default" eval="True"/>
-            <field name="format">custom</field>
-            <field name="page_height">148</field>
-            <field name="page_width">210</field>
-            <field name="orientation">Portrait</field>
-            <field name="margin_top">17</field>
-            <field name="margin_bottom">15</field>
-            <field name="margin_left">4</field>
-            <field name="margin_right">4</field>
-            <field name="header_line" eval="False"/>
-            <field name="header_spacing">15</field>
-            <field name="dpi">80</field>
-            <field name="report_ids" eval="[(4, ref('action_report'))]"/>
-        </record> -->
-
 </odoo>

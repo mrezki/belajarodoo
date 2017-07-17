@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+    <data>
+        <!-- Add instructor field to existing view -->
+        <record model="ir.ui.view" id="lat_siswa_student_form">
+            <field name="name">lat.siswa.student.form</field>
+            <field name="model">lat.siswa.student</field>
+            <field name="arch" type="xml">
+                <form string="Register Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="lat_register_id"/>
+                            <field name="lat_siswa"/>
+                            <field name="lat_regiterdate"/>
+                            <field name="lat_birthdate"/>
+                            <field name="lat_sex"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lat_siswa_student_tree">
+            <field name="name">lat.siswa.student.tree</field>
+            <field name="model">lat.siswa.student</field>
+            <field name="arch" type="xml">
+                <tree string="Register Tree">
+                    <field name="name"/>
+                    <field name="lat_siswa"/>
+                    <field name="lat_regiterdate"/>
+                    <field name="lat_birthdate"/>
+                    <field name="lat_sex"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="lat_siswa_student_action">
+            <field name="name">Student</field>
+            <field name="res_model">lat.siswa.student</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first Student
+                </p>
+            </field>
+        </record>
+
+        <menuitem 
+                id="menu_student" 
+                name="Student"
+                parent="main_student_module_menu"
+                action="lat_siswa_student_action"
+                sequence="1"
+        />
+    </data>
+</odoo>

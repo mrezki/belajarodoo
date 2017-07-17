@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+    <data>
+        <!-- Add instructor field to existing view -->
+        <record model="ir.ui.view" id="lat_siswa_register_form">
+            <field name="name">lat.siswa.register.form</field>
+            <field name="model">lat.siswa.register</field>
+            <field name="arch" type="xml">
+                <form string="Register Form">
+                    <header>
+                        <field name="lat_state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button
+                                name="lat_action_create_receipt"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file"
+                                string="Receipt"/>
+                            <button
+                                name="lat_action_generate_student"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file"
+                                string="Student Data"
+                                attrs="{'invisible': [('lat_state', '=', 'new')]}"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="lat_siswa"/>
+                            <field name="lat_regiterdate"/>
+                            <field name="lat_birthdate"/>
+                            <field name="lat_sex"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lat_siswa_register_tree">
+            <field name="name">lat.siswa.register.tree</field>
+            <field name="model">lat.siswa.register</field>
+            <field name="arch" type="xml">
+                <tree string="Register Tree">
+                    <field name="name"/>
+                    <field name="lat_siswa"/>
+                    <field name="lat_regiterdate"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="lat_siswa_register_action">
+            <field name="name">Register</field>
+            <field name="res_model">lat.siswa.register</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first Register
+                </p>
+            </field>
+        </record>
+
+        <menuitem 
+                id="main_student_module_menu" 
+                name="Student"
+        />
+        <menuitem 
+                id="menu_regiter" 
+                name="Register"
+                parent="main_student_module_menu"
+                action="lat_siswa_register_action"
+                sequence="1"
+        />
+    </data>
+</odoo>
