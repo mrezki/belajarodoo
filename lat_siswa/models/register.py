@@ -4,6 +4,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class register(models.Model):
     _name = 'lat.siswa.register'
 
@@ -14,11 +15,11 @@ class register(models.Model):
     )
     lat_siswa = fields.Char(string="Name", required=True)
     lat_regiterdate = fields.Date(
-		string='Register Date',
-    	default=fields.Date.today
+        string='Register Date',
+        default=fields.Date.today
     )
     lat_birthdate = fields.Date(
-    	string='Birth Date'
+        string='Birth Date',
     )
     lat_sex = fields.Selection([
         ('male', "Male"),
@@ -36,19 +37,21 @@ class register(models.Model):
     def create(self, vals):
 
         if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('register.number') or 'New'
+            reg = self.env['ir.sequence'].next_by_code('register.number')
+            vals['name'] = reg or 'New'
 
         return super(register, self).create(vals)
 
     @api.multi
     def lat_action_create_receipt(self):
-        lat_register_id = self.env['lat.siswa.receipt'].search([('lat_register_id', '=', self.id)], limit=1)
+        reg = [('lat_register_id', '=', self.id)]
+        lat_register_id = self.env['lat.siswa.receipt'].search(reg, limit=1)
 
         if not lat_register_id:
 
             receipt = self.env['lat.siswa.receipt'].create(
                 {
-                    'name': self.env['ir.sequence'].next_by_code('receipt.number'),
+                    'name': 'New',
                     'lat_register_id': self.id,
                     'lat_siswa': self.lat_siswa,
                     'lat_paiddate': fields.Date.today(),
@@ -77,13 +80,14 @@ class register(models.Model):
 
     @api.multi
     def lat_action_generate_student(self):
-        lat_register_id = self.env['lat.siswa.student'].search([('lat_register_id', '=', self.id)], limit=1)
+        reg = [('lat_register_id', '=', self.id)]
+        lat_register_id = self.env['lat.siswa.student'].search(reg, limit=1)
 
         if not lat_register_id:
 
             receipt = self.env['lat.siswa.student'].create(
                 {
-                    'name': self.env['ir.sequence'].next_by_code('student.number'),
+                    'name': 'New',
                     'lat_register_id': self.id,
                     'lat_siswa': self.lat_siswa,
                     'lat_paiddate': fields.Date.today(),

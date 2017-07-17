@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from datetime import timedelta, datetime
-from odoo import models, fields, api, exceptions, _
+from odoo import models, fields, api
 
 import logging
 
@@ -12,8 +11,10 @@ class student(models.Model):
     _name = 'lat.siswa.student'
 
     name = fields.Char(string="Student ID", required=True)
-    lat_register_id = fields.Many2one('lat.siswa.register',
-        string="Register ID", required=True)
+    lat_register_id = fields.Many2one(
+        'lat.siswa.register',
+        string="Register ID", required=True
+    )
     lat_siswa = fields.Char(string="Name", required=True)
     lat_regiterdate = fields.Date(
         string="Register Date",
@@ -26,4 +27,12 @@ class student(models.Model):
         ('male', "Male"),
         ('female', "Female"),
     ], string="Sex")
-    
+
+    @api.model
+    def create(self, vals):
+
+        if vals.get('name', 'New') == 'New':
+            reg = self.env['ir.sequence'].next_by_code('student.number')
+            vals['name'] = reg or 'New'
+
+        return super(student, self).create(vals)
