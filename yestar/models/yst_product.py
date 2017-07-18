@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models
 
+
 class fal_product_template(models.Model):
     _inherit = 'product.template'
 
