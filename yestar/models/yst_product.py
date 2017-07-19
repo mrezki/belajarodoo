@@ -16,3 +16,8 @@ class fal_product_template(models.Model):
     fal_seat = fields.Integer(string="Number of seats")
     fal_colour = fields.Char(string="Colour")
     fal_description = fields.Text(string="Description")
+
+    fal_model = fields.Many2one(
+        'fleet.vehicle.model',
+        string='Model',
+    )

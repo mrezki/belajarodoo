@@ -27,6 +27,7 @@
                         <field name="fal_origin" readonly="1"/>
                         <field name="fal_product_id" readonly="1"/>
                         <field name="fal_sequence_item" readonly="1"/>
+                        <field name="fal_colour"/>
                         <field name="fal_no_stnk"/>
                         <field name="fal_no_bpkb"/>
                         <field name="fal_fleet" readonly="1"/>

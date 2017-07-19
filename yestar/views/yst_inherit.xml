@@ -19,8 +19,6 @@
                     </button>
                 </xpath>
 
-                
-
                 <field name="validity_date" position="after">
                     <field name="fal_payment"/>
                 </field>
@@ -36,6 +34,18 @@
                 <xpath expr="//field[@name='pack_lot_ids']/tree/field[@name='lot_id']" position="after">
                     <field name="fal_fleet" readonly="1"/>
                 </xpath>
+            </field>
+        </record>
+
+        <record id="view_inherit_fleet_vehicle" model="ir.ui.view">
+            <field name="name">fleet.vehicle.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <field name="driver_id" position="attributes">
+                    <attribute name="string">Owner</attribute>
+                </field>
             </field>
         </record>
 

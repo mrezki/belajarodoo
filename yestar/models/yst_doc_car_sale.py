@@ -38,6 +38,9 @@ class fal_document_car_sale(models.Model):
         string="Vehicle",
         index=True
     )
+    fal_colour = fields.Char(
+        string="Colour",
+    )
 
     @api.model
     def create(self, vals):
@@ -122,7 +125,7 @@ class fal_inherit_stock_picking(models.Model):
                             self.env['fleet.vehicle'].create(
                                 {
                                     'license_plate': lot.lot_name,
-                                    'model_id': '56',
+                                    'model_id': pick.product_id.fal_model.id,
                                 }
                             )
                             fleet = self.env[fv].search(search, limit=1)
@@ -158,4 +161,15 @@ class fal_inherit_stock_picking(models.Model):
                                 'fal_fleet': fleet.fal_fleet.id,
                             }
                         )
+
+                        self.env['fleet.vehicle'].browse(fleet.fal_fleet.id).write(
+                            {
+                                'state_id': 4,
+                                'driver_id': pick.partner_id.id,
+                            }
+                        )
+                        # _logger.info(fleet.fal_fleet.id)
+                        # _logger.info(pick.partner_id.id)
+                        # _logger.info("===Line 170===")
+                        # raise EnvironmentError
         return result

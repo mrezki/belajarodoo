@@ -18,6 +18,10 @@
                         </group>
                     </page>
                 </notebook>
+                
+                <field name="name" position="after">
+                    <field name="fal_model"/>
+                </field>
             </field>
         </record>
     </data>

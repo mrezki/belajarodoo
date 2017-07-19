@@ -6,7 +6,7 @@
     "description": """
         Module Car Dealer Indonesia.
     """,
-    "depends": ["base", 'sale'],
+    "depends": ["base", 'sale', 'fleet'],
     "init_xml": [],
     "data": [
         'views/yst_product.xml',
